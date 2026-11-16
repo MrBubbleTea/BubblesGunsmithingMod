@@ -1,0 +1,13 @@
+{
+  "itemGroup.bubblesgunsmithing": "Example Mod Tab",
+  "block.bubblesgunsmithing.example_block": "Example Block",
+  "item.bubblesgunsmithing.example_item": "Example Item",
+
+  "bubblesgunsmithing.configuration.title": "Bubbles Gunsmithing Configs",
+  "bubblesgunsmithing.configuration.section.bubblesgunsmithing.common.toml": "Bubbles Gunsmithing Configs",
+  "bubblesgunsmithing.configuration.section.bubblesgunsmithing.common.toml.title": "Bubbles Gunsmithing Configs",
+  "bubblesgunsmithing.configuration.items": "Item List",
+  "bubblesgunsmithing.configuration.logDirtBlock": "Log Dirt Block",
+  "bubblesgunsmithing.configuration.magicNumberIntroduction": "Magic Number Text",
+  "bubblesgunsmithing.configuration.magicNumber": "Magic Number"
+}
