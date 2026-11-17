@@ -11,9 +11,9 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = BubblesGunsmithing.MODID, dist = Dist.CLIENT)
+@Mod(value = BubblesGunsmithing.MOD_ID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = BubblesGunsmithing.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BubblesGunsmithing.MOD_ID, value = Dist.CLIENT)
 public class BubblesGunsmithingClient {
     public BubblesGunsmithingClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
