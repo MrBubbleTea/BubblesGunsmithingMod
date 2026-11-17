@@ -1,16 +1,21 @@
 package com.mrbubbletea.bubblesgunsmithing.item.gunPart;
 
 public enum GunPartTypes {
-    RECEIVER("Receiver"),
-    TRIGGER("Trigger"),
+    BARREL("Barrel"),
     BOLT("Bolt"),
-    SLIDE("Slide"),
+    GRIP("Grip"),
+    GRIPTAPE("Grip Tape"),
     HAMMER("Hammer"),
+    HANDGUARD("Handguard"),
     RAIL("Rail"),
-    GRIP("Grip");
+    RECEIVER("Receiver"),
+    SIGHT("Sight"),
+    SLIDE("Slide"),
+    STOCK("Stock"),
+    TRIGGER("Trigger");
+
 
     public final String label;
-
     // Constructor
     private GunPartTypes(String label) {
         this.label = label;
