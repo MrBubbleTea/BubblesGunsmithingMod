@@ -14,62 +14,85 @@ import java.util.ArrayList;
 
 public abstract class AbstractGunPart extends Item {
     protected GunPartTypes type;
-    protected ArrayList<GunPartEntry> entries;
-
+    protected ArrayList<GunPartEntry> entries = new ArrayList<>();
+    protected GunPartStats stats;
     // Constructor
     public AbstractGunPart(Properties properties) {
         super(properties
                 // Default Property values
                 .durability(100)
-                .stacksTo(1)
                 .rarity(Rarity.COMMON)
         );
-        GunPartStats stats = GunPartStats.createGunPartStats();
-    };
+        this.stats = GunPartStats.createGunPartStats();
+    }
 
 
     // Creates an Attachment point for a Gun Part
-    protected int createAttachmentPoint(String key, GunPartTypes type, AbstractGunPart value) {
+    protected int createAttachmentPoint(String key, ArrayList<GunPartTypes> type, AbstractGunPart value, float x, float y, float z) {
         try {
-            GunPartEntry entry = new GunPartEntry(key,type,value);
-            entries.add(entry);
-            if (!entries.contains(entry)) {throw new IOException("No Entry was inserted into ArrayList");}
+            GunPartEntry entry = new GunPartEntry(key,type,value,x,y,z);
+            boolean check = entries.add(entry);
+            if (check) {throw new IOException("No Entry was inserted into ArrayList");}
         } catch(IOException e) {
             BubblesGunsmithing.LOGGER.error("Error making attachment: ", e);
             return 0; // Failure, Cry and scream to the devs
         }
         return 1; // Successful creation;
     }
+    // value
+    protected int createAttachmentPoint(String key, ArrayList<GunPartTypes> type, float x, float y, float z) {
+        return createAttachmentPoint(key,type,null,x,y,z);
+    }
 
     // Abstract Method for attaching a GunPart implementation
-    abstract void attach();
+    abstract void attach(AbstractGunPart newGunPart);
 
 
 
-    // Helper inner class to store fields of Triples
+    // Helper inner class to store fields for gun part connection points
     protected static class GunPartEntry {
+        // Fields
         private final String name;
-        private final GunPartTypes required;
+        private final ArrayList<GunPartTypes> required;
         private AbstractGunPart attached;
-        protected GunPartEntry(String name, GunPartTypes required, AbstractGunPart attached) {
+        private final float x,y,z;
+        // Constructors
+        // For god knows what you want to use this constructor for
+        protected GunPartEntry(String name, ArrayList<GunPartTypes> required, AbstractGunPart attached) {
+            this(name,required,attached,0f,0f,0f);
+        }
+        // The values of the GunPart's Attachement point; The name of the point, the required part
+        protected GunPartEntry(String name, ArrayList<GunPartTypes> required, AbstractGunPart attached, float x, float y, float z) {
             this.name = name;
-            this.required = required;
+            this.required = new ArrayList<>(required);
             this.attached = attached;
+            // Location on the gun the attachment point is located in
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
 
         /*-------------------GETTERS---------------*/
         protected String getName() {
             return name;
         }
-        protected GunPartTypes getRequired() {
+        protected ArrayList<GunPartTypes> getRequired() {
             return required;
         }
         protected AbstractGunPart getAttached() {
             return attached;
         }
+        protected float getX() { return x;}
+        protected float getY() { return y;}
+        protected float getZ() { return z;}
+        protected float[] getXYZ() { return new float[]{getX(),getY(),getZ()}; }
         /*-------------------SETTERS---------------*/
         // Returns the previous part if applicable
         protected AbstractGunPart setGunPart(AbstractGunPart newPart) {
+            if (!checkValidGunPart(newPart)) {
+                // call some sort of notif method, maybe a sound event or something
+                return null; // Prevents any interaction
+            }
             AbstractGunPart toReturn = attached;
             attached = newPart;
             return toReturn;
@@ -80,9 +103,13 @@ public abstract class AbstractGunPart extends Item {
             attached = null;
             return toReturn;
         }
+        protected boolean checkValidGunPart(AbstractGunPart newPart) {
+            if (newPart == null) {return false;}
+            return required.contains(newPart.type);
+        }
     }
 
-    // Protected class that carries the attachments stats
+    // Inner Protected class that carries the attachments stats
     protected static class GunPartStats {
         // Damage
         double damageMelee = 0.0; // Melee Damage
@@ -108,6 +135,11 @@ public abstract class AbstractGunPart extends Item {
         boolean needsWorkbench = true; // Does the GunPart require a workbench to attach it
 
         private GunPartStats() {
+            try {
+                BubblesGunsmithing.LOGGER.info("GunPart Stats created");
+            } catch (RuntimeException e) {
+                BubblesGunsmithing.LOGGER.error("Unable to create GunPart's Stats: ",e);
+            }
         }
 
         // Factory Method to create GunPartStats instance
