@@ -6,8 +6,8 @@ import com.mrbubbletea.bubblesgunsmithing.item.gunPart.interfaces.Zoomable;
 
 public class Receiver extends AbstractReceiverPart {
 
-    public Receiver(Properties properties) {
-        super(properties);
+    public Receiver(Properties properties, GunPartStats gunPartStats) {
+        super(properties, gunPartStats);
     }
 
     @Override

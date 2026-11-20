@@ -2,6 +2,7 @@ package com.mrbubbletea.bubblesgunsmithing.item;
 
 import com.mrbubbletea.bubblesgunsmithing.BubblesGunsmithing;
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.Receiver;
+import com.mrbubbletea.bubblesgunsmithing.item.gunPart.abstracts.AbstractGunPart;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -19,6 +20,9 @@ public class ModItems {
             new Item.Properties()
                 .rarity(Rarity.UNCOMMON)
                 .durability(250)
+            ,
+            // Yea a builder is needed
+            new AbstractGunPart.GunPartStats(1,1,1,1,1,1,1,1,1,1,1,1,1,1,true)
             )
     );
 
