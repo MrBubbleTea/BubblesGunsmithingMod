@@ -1,6 +1,9 @@
 package com.mrbubbletea.bubblesgunsmithing.item.gunPart.interfaces;
 
+import com.mrbubbletea.bubblesgunsmithing.item.gunPart.abstracts.AbstractGunPart;
+
 public interface Attachable {
     // The Gun Part Attachable
-    public boolean isAttachable();
+    boolean isAttachable();
+    AbstractGunPart attach();
 }

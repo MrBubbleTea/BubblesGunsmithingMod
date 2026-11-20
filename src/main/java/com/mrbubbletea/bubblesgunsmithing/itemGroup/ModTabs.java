@@ -15,12 +15,13 @@ public class ModTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BubblesGunsmithing.MOD_ID);
 
     // Creates a creative tab with the id "bubblesgunsmithing:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BUBBLES_GUNSMITHING_TAB = CREATIVE_MODE_TABS.register("bubbles_gunsmithing_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.bubblesgunsmithing")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModItems.EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ModItems.EXAMPLE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(ModItems.IRON_RECEIVER.get());
             }).build());
 
     public static void register(IEventBus eventBus) {

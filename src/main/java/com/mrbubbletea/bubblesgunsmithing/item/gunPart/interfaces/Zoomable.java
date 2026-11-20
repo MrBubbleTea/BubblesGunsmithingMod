@@ -4,5 +4,5 @@ import net.neoforged.neoforge.client.event.ComputeFovModifierEvent;
 
 public interface Zoomable {
     // Modifies the Players FOV
-    public void zoom(ComputeFovModifierEvent event);
+    void zoom(ComputeFovModifierEvent event);
 }

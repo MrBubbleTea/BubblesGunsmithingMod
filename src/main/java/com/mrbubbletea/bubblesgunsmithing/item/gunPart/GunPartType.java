@@ -1,12 +1,13 @@
 package com.mrbubbletea.bubblesgunsmithing.item.gunPart;
 
-public enum GunPartTypes {
+public enum GunPartType {
     BARREL("Barrel"),
     BOLT("Bolt"),
     GRIP("Grip"),
-    GRIPTAPE("Grip Tape"),
+    GRIP_TAPE("Grip Tape"),
     HAMMER("Hammer"),
     HANDGUARD("Handguard"),
+    MAGAZINE_WELL("Magazine Well"),
     RAIL("Rail"),
     RECEIVER("Receiver"),
     SIGHT("Sight"),
@@ -17,7 +18,7 @@ public enum GunPartTypes {
 
     public final String label;
     // Constructor
-    private GunPartTypes(String label) {
+    private GunPartType(String label) {
         this.label = label;
     }
 
@@ -26,4 +27,6 @@ public enum GunPartTypes {
     public String toString() {
         return this.label;
     }
+
+
 }

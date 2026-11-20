@@ -1,6 +1,7 @@
 package com.mrbubbletea.bubblesgunsmithing;
 
 import com.mrbubbletea.bubblesgunsmithing.block.ModBlocks;
+import com.mrbubbletea.bubblesgunsmithing.component.ModDataComponent;
 import com.mrbubbletea.bubblesgunsmithing.item.ModItems;
 import com.mrbubbletea.bubblesgunsmithing.itemGroup.ModTabs;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ public class BubblesGunsmithing {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModTabs.register(modEventBus);
-
+        ModDataComponent.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

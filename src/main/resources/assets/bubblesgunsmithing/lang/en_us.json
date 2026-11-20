@@ -1,7 +1,8 @@
 {
-  "itemGroup.bubblesgunsmithing": "Example Mod Tab",
+  "itemGroup.bubblesgunsmithing": "Bubbles Gunsmithing",
   "block.bubblesgunsmithing.example_block": "Example Block",
   "item.bubblesgunsmithing.example_item": "Example Item",
+  "item.bubblesgunsmithing.iron_receiver": "Iron Receiver",
 
   "bubblesgunsmithing.configuration.title": "Bubbles Gunsmithing Configs",
   "bubblesgunsmithing.configuration.section.bubblesgunsmithing.common.toml": "Bubbles Gunsmithing Configs",
