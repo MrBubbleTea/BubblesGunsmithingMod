@@ -112,178 +112,185 @@ public abstract class AbstractGunPart extends Item {
     // Inner Protected class that carries the attachments stats
     public static class GunPartStats {
         // Damage
-        double damageMelee = 0.0; // Melee Damage
-        float damageMultiplier = 0f; // Ranged Damage Multiplier
+        double damageMelee; // Melee Damage
+        float damageMultiplier; // Ranged Damage Multiplier
         // Durability Modifiers
-        double heatTolerance = 0.0; // How much tolerance a gun part can protect itself from sustained fire
-        double stressTolerance = 0.0; // How much tolerance a gun part can protect itself from cartridge operations and such
-        double barrelStrength = 0.0; // How strong the barrel can handle for a round; if too low, gun MAY explode.
+        double heatTolerance; // How much tolerance a gun part can protect itself from sustained fire
+        double stressTolerance; // How much tolerance a gun part can protect itself from cartridge operations and such
+        double barrelStrength; // How strong the barrel can handle for a round; if too low, gun MAY explode.
         // Accuracy
-        float spread = 0f; // How accurate is the projectiles from the center of aim
-        float recoilVertical = 0f; // Vertical Recoil
-        float recoilHorizontal = 0f; // Horizontal Recoil
+        float spread; // How accurate is the projectiles from the center of aim
+        float recoilVertical; // Vertical Recoil
+        float recoilHorizontal; // Horizontal Recoil
         // Speed
-        float projectileSpeed = 0f; // How fast the projectile leaves the gun
-        double reloadSpeed = 0.0; // How fast can the player can reload the gun
-        double adsSpeed = 0.0; // How fast the player can aim down sights
+        float projectileSpeed; // How fast the projectile leaves the gun
+        double reloadSpeed; // How fast can the player can reload the gun
+        double adsSpeed; // How fast the player can aim down sights
         // Capacity
-        int ammoCapacity = 0; // How much ammo can the part hold if applicable; defaults to zero
-        double weight = 0.0; // How heavy the gun weighs, higher values = slower player movement speed
+        int ammoCapacity; // How much ammo can the part hold if applicable; defaults to zero
+        double weight; // How heavy the gun weighs, higher values = slower player movement speed
         // Length
-        double totalLength = 0.0; // Total length of the GunPart, gun MAY bump into things
+        double totalLength; // Total length of the GunPart, gun MAY bump into things
         // Booleans
-        boolean needsWorkbench = true; // Does the GunPart require a workbench to attach it
+        boolean needsWorkbench; // Does the GunPart require a workbench to attach it
 
-        private GunPartStats() {
-            try {
-                BubblesGunsmithing.LOGGER.info("GunPart Stats created");
-            } catch (RuntimeException e) {
-                BubblesGunsmithing.LOGGER.error("Unable to create GunPart's Stats: ",e);
-            }
-        }
 
         // Thank god Intellij handles constructor gen
         // However I may need to replace with a builder :P
-        public GunPartStats(double damageMelee, float damageMultiplier, double heatTolerance, double stressTolerance, double barrelStrength, float spread, float recoilVertical, float recoilHorizontal, float projectileSpeed, double reloadSpeed, double adsSpeed, int ammoCapacity, double weight, double totalLength, boolean needsWorkbench) {
-            this.damageMelee = damageMelee;
-            this.damageMultiplier = damageMultiplier;
-            this.heatTolerance = heatTolerance;
-            this.stressTolerance = stressTolerance;
-            this.barrelStrength = barrelStrength;
-            this.spread = spread;
-            this.recoilVertical = recoilVertical;
-            this.recoilHorizontal = recoilHorizontal;
-            this.projectileSpeed = projectileSpeed;
-            this.reloadSpeed = reloadSpeed;
-            this.adsSpeed = adsSpeed;
-            this.ammoCapacity = ammoCapacity;
-            this.weight = weight;
-            this.totalLength = totalLength;
-            this.needsWorkbench = needsWorkbench;
+        public GunPartStats(GunPartStatsBuilder builder) {
+            this.damageMelee = builder.damageMelee;
+            this.damageMultiplier = builder.damageMultiplier;
+            this.heatTolerance = builder.heatTolerance;
+            this.stressTolerance = builder.stressTolerance;
+            this.barrelStrength = builder.barrelStrength;
+            this.spread = builder.spread;
+            this.recoilVertical = builder.recoilVertical;
+            this.recoilHorizontal = builder.recoilHorizontal;
+            this.projectileSpeed = builder.projectileSpeed;
+            this.reloadSpeed = builder.reloadSpeed;
+            this.adsSpeed = builder.adsSpeed;
+            this.ammoCapacity = builder.ammoCapacity;
+            this.weight = builder.weight;
+            this.totalLength = builder.totalLength;
+            this.needsWorkbench = builder.needsWorkbench;
         }
 
         /*-------------------GETTERS-------------------------*/
-        protected double getDamageMelee() {
+        public double getDamageMelee() {
             return damageMelee;
         }
-
-        protected float getDamageMultiplier() {
+        public float getDamageMultiplier() {
             return damageMultiplier;
         }
-
-        protected double getHeatTolerance() {
+        public double getHeatTolerance() {
             return heatTolerance;
         }
-
-        protected double getStressTolerance() {
+        public double getStressTolerance() {
             return stressTolerance;
         }
-
         public double getBarrelStrength() {
             return barrelStrength;
         }
-
         public float getSpread() {
             return spread;
         }
-
         public float getRecoilVertical() {
             return recoilVertical;
         }
-
         public float getRecoilHorizontal() {
             return recoilHorizontal;
         }
-
         public float getProjectileSpeed() {
             return projectileSpeed;
         }
-
         public double getReloadSpeed() {
             return reloadSpeed;
         }
-
         public double getAdsSpeed() {
             return adsSpeed;
         }
-
         public int getAmmoCapacity() {
             return ammoCapacity;
         }
-
         public double getWeight() {
             return weight;
         }
-
         public double getTotalLength() {
             return totalLength;
         }
-
         public boolean isNeedsWorkbench() {
             return needsWorkbench;
         }
 
-        /*-------------------SETTERS-------------------------*/
+        public static class GunPartStatsBuilder {
+            // Damage
+            private double damageMelee = 0.0; // Melee Damage
+            private float damageMultiplier = 0f; // Ranged Damage Multiplier
+            // Durability Modifiers
+            private double heatTolerance = 0.0; // How much tolerance a gun part can protect itself from sustained fire
+            private double stressTolerance = 0.0; // How much tolerance a gun part can protect itself from cartridge operations and such
+            private double barrelStrength = 0.0; // How strong the barrel can handle for a round; if too low, gun MAY explode.
+            // Accuracy
+            private float spread = 0f; // How accurate is the projectiles from the center of aim
+            private float recoilVertical = 0f; // Vertical Recoil
+            private float recoilHorizontal = 0f; // Horizontal Recoil
+            // Speed
+            private float projectileSpeed = 0f; // How fast the projectile leaves the gun
+            private double reloadSpeed = 0.0; // How fast can the player can reload the gun
+            private double adsSpeed = 0.0; // How fast the player can aim down sights
+            // Capacity
+            private int ammoCapacity = 0; // How much ammo can the part hold if applicable; defaults to zero
+            private double weight = 0.0; // How heavy the gun weighs, higher values = slower player movement speed
+            // Length
+            private double totalLength = 0.0; // Total length of the GunPart, gun MAY bump into things
+            // Booleans
+            private boolean needsWorkbench = true; // Does the GunPart require a workbench to attach it
 
-        public void setDamageMelee(double damageMelee) {
-            this.damageMelee = damageMelee;
+            /*-------------------SETTERS-------------------------*/
+            public GunPartStatsBuilder setDamageMelee(double damageMelee) {
+                this.damageMelee = damageMelee;
+                return this;
+            }
+            public GunPartStatsBuilder setDamageMultiplier(float damageMultiplier) {
+                this.damageMultiplier = damageMultiplier;
+                return this;
+            }
+            public GunPartStatsBuilder setHeatTolerance(double heatTolerance) {
+                this.heatTolerance = heatTolerance;
+                return this;
+            }
+            public GunPartStatsBuilder setStressTolerance(double stressTolerance) {
+                this.stressTolerance = stressTolerance;
+                return this;
+            }
+            public GunPartStatsBuilder setBarrelStrength(double barrelStrength) {
+                this.barrelStrength = barrelStrength;
+                return this;
+            }
+            public GunPartStatsBuilder setSpread(float spread) {
+                this.spread = spread;
+                return this;
+            }
+            public GunPartStatsBuilder setRecoilVertical(float recoilVertical) {
+                this.recoilVertical = recoilVertical;
+                return this;
+            }
+            public GunPartStatsBuilder setRecoilHorizontal(float recoilHorizontal) {
+                this.recoilHorizontal = recoilHorizontal;
+                return this;
+            }
+            public GunPartStatsBuilder setProjectileSpeed(float projectileSpeed) {
+                this.projectileSpeed = projectileSpeed;
+            }
+            public GunPartStatsBuilder setReloadSpeed(double reloadSpeed) {
+                this.reloadSpeed = reloadSpeed;
+                return this;
+            }
+            public GunPartStatsBuilder setAdsSpeed(double adsSpeed) {
+                this.adsSpeed = adsSpeed;
+                return this;
+            }
+            public GunPartStatsBuilder setAmmoCapacity(int ammoCapacity) {
+                this.ammoCapacity = ammoCapacity;
+                return this;
+            }
+            public GunPartStatsBuilder setWeight(double weight) {this.weight = weight; return this;}
+            public GunPartStatsBuilder setTotalLength(double totalLength) {
+                this.totalLength = totalLength;
+                return this;
+            }
+            public GunPartStatsBuilder setNeedsWorkbench(boolean needsWorkbench) {
+                this.needsWorkbench = needsWorkbench;
+                return this;
+            }
+
+            public GunPartStatsBuilder () {};
+            public GunPartStats build() {
+                return new GunPartStats(this);
+            }
         }
 
-        public void setDamageMultiplier(float damageMultiplier) {
-            this.damageMultiplier = damageMultiplier;
-        }
 
-        public void setHeatTolerance(double heatTolerance) {
-            this.heatTolerance = heatTolerance;
-        }
-
-        public void setStressTolerance(double stressTolerance) {
-            this.stressTolerance = stressTolerance;
-        }
-
-        public void setBarrelStrength(double barrelStrength) {
-            this.barrelStrength = barrelStrength;
-        }
-
-        public void setSpread(float spread) {
-            this.spread = spread;
-        }
-
-        public void setRecoilVertical(float recoilVertical) {
-            this.recoilVertical = recoilVertical;
-        }
-
-        public void setRecoilHorizontal(float recoilHorizontal) {
-            this.recoilHorizontal = recoilHorizontal;
-        }
-
-        public void setProjectileSpeed(float projectileSpeed) {
-            this.projectileSpeed = projectileSpeed;
-        }
-
-        public void setReloadSpeed(double reloadSpeed) {
-            this.reloadSpeed = reloadSpeed;
-        }
-
-        public void setAdsSpeed(double adsSpeed) {
-            this.adsSpeed = adsSpeed;
-        }
-
-        public void setAmmoCapacity(int ammoCapacity) {
-            this.ammoCapacity = ammoCapacity;
-        }
-
-        public void setWeight(double weight) {
-            this.weight = weight;
-        }
-
-        public void setTotalLength(double totalLength) {
-            this.totalLength = totalLength;
-        }
-
-        public void setNeedsWorkbench(boolean needsWorkbench) {
-            this.needsWorkbench = needsWorkbench;
-        }
 
         /*-------------------METHODS-------------------------*/
 

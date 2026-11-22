@@ -21,8 +21,15 @@ public class ModItems {
                 .rarity(Rarity.UNCOMMON)
                 .durability(250)
             ,
-            // Yea a builder is needed
-            new AbstractGunPart.GunPartStats(1,1,1,1,1,1,1,1,1,1,1,1,1,1,true)
+
+            new AbstractGunPart.GunPartStats.GunPartStatsBuilder()
+                    .setAdsSpeed(1.0)
+                    .setDamageMelee(1.0)
+                    .setDamageMultiplier(1f)
+                    .setSpread(100f)
+                    .setRecoilHorizontal(100f)
+                    .setRecoilVertical(100f)
+                    .build()
             )
     );
 
