@@ -42,13 +42,14 @@ public abstract class AbstractGunPart extends Item {
     public String getGunPartTypeString() {
         return type.toString();
     }
-
+    public ArrayList<GunPartEntry> getEntries() {  return entries; }
+    public GunPartStats getStats() { return stats; }
 
     /*------------SETTERS---------------------*/
 
 
     // Helper inner class to store fields for gun part connection points
-    protected static class GunPartEntry {
+    public static class GunPartEntry {
         // Fields
         private final String name;
         private final ArrayList<GunPartType> required;
@@ -59,7 +60,7 @@ public abstract class AbstractGunPart extends Item {
         protected GunPartEntry(String name, ArrayList<GunPartType> required) {
             this(name,required,0f,0f,0f);
         }
-        // The values of the GunPart's Attachement point; The name of the point, the required part, and the render location on the model
+        // The values of the GunPart's Attachment point; The name of the point, the required part, and the render location on the model
         protected GunPartEntry(String name, ArrayList<GunPartType> required, float x, float y, float z) {
             this.name = name;
             this.required = new ArrayList<>(required);

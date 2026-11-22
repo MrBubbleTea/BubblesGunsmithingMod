@@ -2,13 +2,14 @@ package com.mrbubbletea.bubblesgunsmithing.item.gunPart;
 
 public enum GunPartType {
     BARREL("Barrel"),
+    BARREL_ATTACHMENT("Barrel Attachment"),
     BOLT("Bolt"),
     GRIP("Grip"),
     GRIP_TAPE("Grip Tape"),
     HAMMER("Hammer"),
     HANDGUARD("Handguard"),
     MAGAZINE_WELL("Magazine Well"),
-    RAIL("Rail"),
+    MOUNT("Mount"),
     RECEIVER("Receiver"),
     SIGHT("Sight"),
     SLIDE("Slide"),
