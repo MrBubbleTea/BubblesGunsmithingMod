@@ -3,10 +3,12 @@ package com.mrbubbletea.bubblesgunsmithing.item.gunPart.abstracts;
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.GunPartType;
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.interfaces.Attachable;
 
+import java.util.ArrayList;
+
 public class AbstractBarrelPart extends AbstractGunPart implements Attachable {
 
-    public AbstractBarrelPart(Properties properties, GunPartType type, GunPartStats statValues) {
-        super(properties, type, statValues);
+    public AbstractBarrelPart(Properties properties, GunPartType type,ArrayList<GunPartEntry> entries, GunPartStats statValues) {
+        super(properties, type, entries, statValues);
     }
 
     @Override

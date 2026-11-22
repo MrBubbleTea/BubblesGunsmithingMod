@@ -4,12 +4,16 @@ package com.mrbubbletea.bubblesgunsmithing.item.gunPart.abstracts;
 import com.mrbubbletea.bubblesgunsmithing.BubblesGunsmithing;
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.GunPartType;
 import net.minecraft.world.item.Item;
+import org.checkerframework.checker.units.qual.A;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-
+import static java.util.List.copyOf;
 
 
 public abstract class AbstractGunPart extends Item {
@@ -17,16 +21,18 @@ public abstract class AbstractGunPart extends Item {
     protected ArrayList<GunPartEntry> entries = new ArrayList<>();
     protected GunPartStats stats;
     // Constructor
-    public AbstractGunPart(Properties properties,GunPartType type, GunPartStats statValues) {
+    public AbstractGunPart(Properties properties,GunPartType type, ArrayList<GunPartEntry> entries, GunPartStats statValues) {
         super(properties);
-        this.stats = GunPartStats.createGunPartStats();
+        this.type = type;
+        this.entries.addAll(entries);
+        this.stats = statValues;
     }
 
 
     // Creates an Attachment point for a Gun Part
     protected int createAttachmentPoint(String key, ArrayList<GunPartType> type, float x, float y, float z) {
         try {
-            GunPartEntry entry = new GunPartEntry(key,type,x,y,z);
+            GunPartEntry entry = new GunPartEntry(key,x,y,z);
             boolean check = entries.add(entry);
             if (!check) {throw new IOException("No Entry was inserted into ArrayList");}
         } catch(IOException e) {
@@ -45,67 +51,56 @@ public abstract class AbstractGunPart extends Item {
     public ArrayList<GunPartEntry> getEntries() {  return entries; }
     public GunPartStats getStats() { return stats; }
 
-    /*------------SETTERS---------------------*/
+    /*--------------------------------------------EndOfAbstractGunPart--------------------------------------------------------------*/
 
 
     // Helper inner class to store fields for gun part connection points
     public static class GunPartEntry {
         // Fields
         private final String name;
-        private final ArrayList<GunPartType> required;
-        private AbstractGunPart attached;
+        private final ArrayList<GunPartType> required = new ArrayList<>();
         private final float x,y,z;
         // Constructors
-        // For god knows what you want to use this constructor for
-        protected GunPartEntry(String name, ArrayList<GunPartType> required) {
-            this(name,required,0f,0f,0f);
-        }
         // The values of the GunPart's Attachment point; The name of the point, the required part, and the render location on the model
-        protected GunPartEntry(String name, ArrayList<GunPartType> required, float x, float y, float z) {
+        public GunPartEntry(String name, float x, float y, float z) {
             this.name = name;
-            this.required = new ArrayList<>(required);
-            // Gun Part Attachments to a gun must be moved to a DataComponent since if it were left here it would give attachments to ALL gun items in a world
-            //this.attached = attached;
             // Location on the gun the attachment point is located in
             this.x = x;
             this.y = y;
             this.z = z;
         }
-
         /*-------------------GETTERS---------------*/
-        protected String getName() {
+        public String getName() {
             return name;
         }
-        protected ArrayList<GunPartType> getRequired() {
-            return required;
+        public ArrayList<GunPartType> getRequiredList() {
+            return (ArrayList<GunPartType>) Collections.unmodifiableList(required);
         }
-        protected AbstractGunPart getAttached() {
-            return attached;
-        }
-        protected float getX() { return x;}
-        protected float getY() { return y;}
-        protected float getZ() { return z;}
-        protected float[] getXYZ() { return new float[]{getX(),getY(),getZ()}; }
+        public float getX() { return x;}
+        public float getY() { return y;}
+        public float getZ() { return z;}
+        public float[] getXYZ() { return new float[]{getX(),getY(),getZ()}; }
         /*-------------------SETTERS---------------*/
-        // Returns the previous part if applicable
-        protected AbstractGunPart setGunPart(AbstractGunPart newPart) {
-            if (!checkValidGunPart(newPart)) {
-                // call some sort of notif method, maybe a sound event or something
-                return null; // Prevents any interaction
-            }
-            AbstractGunPart toReturn = attached;
-            attached = newPart;
-            return toReturn;
-        }
-        // Returns the previous part and leaves the slot empty
-        protected  AbstractGunPart setGunPart() {
-            AbstractGunPart toReturn = attached;
-            attached = null;
-            return toReturn;
-        }
-        protected boolean checkValidGunPart(AbstractGunPart newPart) {
+        public boolean checkValidGunPart(AbstractGunPart newPart) {
             if (newPart == null) {return false;}
             return required.contains(newPart.type);
+        }
+
+        public static ArrayList<GunPartEntry> createEntryList(GunPartEntry... entries) {
+            return new ArrayList<>(Arrays.asList(entries));
+        }
+
+        private void addGunPartType(GunPartType type) {
+            required.add(type);
+        }
+
+
+        public static GunPartEntry createGunPartEntry(String name, float x, float y, float z, GunPartType... types) {
+            GunPartEntry entry = new GunPartEntry(name, x, y, z);
+            for (GunPartType type : types) {
+                entry.addGunPartType(type);
+            }
+            return entry;
         }
     }
 
@@ -261,6 +256,7 @@ public abstract class AbstractGunPart extends Item {
             }
             public GunPartStatsBuilder setProjectileSpeed(float projectileSpeed) {
                 this.projectileSpeed = projectileSpeed;
+                return this;
             }
             public GunPartStatsBuilder setReloadSpeed(double reloadSpeed) {
                 this.reloadSpeed = reloadSpeed;
@@ -295,10 +291,10 @@ public abstract class AbstractGunPart extends Item {
         /*-------------------METHODS-------------------------*/
 
 
-        // Factory Method to create GunPartStats instance
-        protected static GunPartStats createGunPartStats() {
-            return new GunPartStats();
-        }
+//        // Factory Method to create GunPartStats instance
+//        protected static GunPartStats createGunPartStats() {
+//            return new GunPartStats();
+//        }
     }
 }
 

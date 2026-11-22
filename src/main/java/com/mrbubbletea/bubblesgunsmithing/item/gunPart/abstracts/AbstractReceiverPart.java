@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public abstract class AbstractReceiverPart extends AbstractGunPart implements ReceiverCore {
 
-    public AbstractReceiverPart(Properties properties, GunPartStats statValues) {
-        super(properties, GunPartType.RECEIVER ,statValues);
+    public AbstractReceiverPart(Properties properties, ArrayList<GunPartEntry> entries, GunPartStats statValues) {
+        super(properties, GunPartType.RECEIVER , entries, statValues);
     }
 
 

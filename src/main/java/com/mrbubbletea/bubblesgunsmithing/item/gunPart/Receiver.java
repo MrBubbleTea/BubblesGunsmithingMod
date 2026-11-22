@@ -4,10 +4,12 @@ import com.mrbubbletea.bubblesgunsmithing.item.gunPart.abstracts.AbstractReceive
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.interfaces.Reloadable;
 import com.mrbubbletea.bubblesgunsmithing.item.gunPart.interfaces.Zoomable;
 
+import java.util.ArrayList;
+
 public class Receiver extends AbstractReceiverPart {
 
-    public Receiver(Properties properties, GunPartStats gunPartStats) {
-        super(properties, gunPartStats);
+    public Receiver(Properties properties, ArrayList<GunPartEntry> gunPartEntries, GunPartStats gunPartStats) {
+        super(properties, gunPartEntries,gunPartStats);
     }
 
     @Override
